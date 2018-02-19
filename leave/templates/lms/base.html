@@ -1,0 +1,108 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>     
+    Leave Manager App</title>
+    
+    
+     
+    
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'css/pikaday.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/site.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/blog.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <script src="{% static 'js/pikaday.js' %}"></script>
+    
+</head>
+<style type="text/css">
+    html, body{
+    margin:0px;
+    padding:0px;
+}
+input[type="text"]{
+    margin:0;
+}
+.form-control{
+    margin: 0;
+}
+</style>
+<body>
+     
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/leave/home"><i class="fa fa-list-alt">
+                
+            </i>   Leave Manager</a>
+  
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">     
+      
+
+      
+    </ul>
+    <ul class="navbar-nav ">
+        
+        {% if user.is_authenticated %}
+                 <li class="nav-item active">
+            <a class="nav-link" href="#"><i class="fa fa-user" style="padding-right:5px;"></i>Logged in as : {{ user.get_username }}</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'logout'%}?next={{request.path}}"><i class="fa fa-sign-out" style="padding-right:5px;"></i>Logout</a>
+        </li>
+        {% else %}
+                <li class="nav-item active">
+            <a class="nav-link" href="{% url 'signup' %}?next={{request.path}}"><i class="fa fa-user-plus" style="padding-right:5px;"></i>Sign Up</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'login' %}?next={{request.path}}"><i class="fa fa-sign-in" style="padding-right:5px;"></i>Log In</a>
+        </li>
+                 
+        {% endif %}
+
+
+    </ul>
+  </div>
+</nav>
+
+    <div class="container">
+        
+            {% include 'includes/messages.html' %}
+        
+             
+ {% block content %}
+        
+           
+            
+                
+
+                  
+           
+        
+   {% endblock %}      
+    </div>  
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+
+{% if messages %}
+    <script type="text/javascript">
+        var a = $(".mssg").width()/2;
+        var w = ($(window).width()/2) - a + 'px'; 
+        $(".mssg").css("left",w);
+
+    </script>
+{% endif %}
+</body>
+</html>

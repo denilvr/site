@@ -1,0 +1,63 @@
+
+{% extends '../lms/base.html' %}
+
+{% block content %}
+<style type="text/css">
+  .form-group label{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
+</style>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet"> 
+<div class="row" >
+<div class="col-md-3"></div>
+
+
+
+
+
+
+            <div class="col-md-6">
+              <div class="card" style=" margin-top: 40px; -webkit-box-shadow: 10px 10px 6px -6px #401b60;
+       -moz-box-shadow: 10px 10px 6px -6px #401b60;
+            box-shadow: 10px 10px 6px -6px #401b60;
+            border: none;">
+                <h1 style="
+                opacity:0.8;
+                color:#e5e6e8;
+            background: #4776E6;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #8E54E9, #4776E6);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #8E54E9, #4776E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                font-size: 25px;
+ 
+                padding: 30px;
+                text-align: center;
+
+                "  >
+                SIGN UP
+                </h1>
+               {% if mssg %}
+                <div class="alert alert-danger" role="alert">
+                {{mssg}}
+               </div> 
+               {% endif %}
+                           
+                <form method="post" class="add_form" action="{% url 'login' %}" novalidate  style="margin: 40px;margin-top:0;font-family: 'Roboto', sans-serif;font-weight:100;">
+                  {% csrf_token %}
+                  {% include 'includes/bs4_form.html' with form=form %}
+                  <button class="btn btn-primary" style="margin-bottom:20px;">Submit</button>
+                </form>
+              </div>             
+           </div>
+<div class="col-md-3"></div>
+
+</div>
+
+
+
+
+
+{% endblock %}
+
+
+

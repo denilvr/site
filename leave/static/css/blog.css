@@ -1,0 +1,159 @@
+body{
+	background: #5C258D;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #4389A2, #5C258D);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #4389A2, #5C258D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.log{
+	font-family: Roboto;
+	text-transform: uppercase;
+	margin-top: 20px;
+}
+.navbar{
+	 -webkit-box-shadow: 0 10px 6px -6px #401b60;
+       -moz-box-shadow: 0 10px 6px -6px #401b60;
+            box-shadow: 0 10px 6px -6px #401b60;
+}
+.add_button{
+	width: 100%;
+	font-size: 20px;
+	text-transform: uppercase;
+	padding: 10px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	color: white;
+	cursor: pointer;
+	z-index: 0;
+}
+
+.post{
+	margin-top: 10px; 
+	padding: 10px;
+	box-shadow: 0 10px 6px -6px #777;
+	margin-bottom: 40px;
+	background: white;
+	transition: transform 0.5s;	
+	animation: abc 3s;
+}
+
+@keyframes abc{
+	0%{
+		opacity: 0;
+	}
+	100%{
+		opacity: 1;
+	}
+}
+.post:hover{
+	transform: scale(1.01);
+}
+
+a{
+	text-decoration: none;
+
+
+}
+
+a:hover{
+	text-decoration: none;
+}
+button:active{
+	border: none;
+	outline: none;
+}
+button:focus{
+	border: none;
+	outline:none;
+}
+.del_comm_btn:focus{
+
+	border: none;
+	outline:none;
+
+}
+.navbar-brand{
+	padding-left: 40px;
+}
+.blog_title{
+	color: gray;
+	font-family: Oswald;
+	text-transform: uppercase;
+	font-size: 32px;
+}
+.row{
+	transition: top 1s;
+}
+.post_text{
+	font-size: 22px;
+	font-family: Oswald;
+	padding-left: 10px;
+}
+.date{
+	font-family: Lato;
+}
+.fa-pencil{
+	padding-left: 10px;
+	font-size: 30px;
+}
+.fa-trash{
+	font-size: 30px;
+	
+}
+.comm_button{
+	font-size: 15px;
+}
+.comm_button:hover{
+	color: blue;
+}
+.fa-trash:hover{
+	
+	color: red;
+}
+
+.add_form{
+	margin-top: 30px;
+}
+label{
+	font-size: 24px;
+}
+.post_detail{
+	margin-top: 70px;
+}
+.form-group label{
+	font-family: Roboto;
+}
+.mssg{
+	z-index: 1;
+	position: absolute;
+	top: 2px;
+	animation: anim 5s ;
+	animation-fill-mode: forwards;
+}
+
+@keyframes anim{
+	0%{
+		opacity: 1;
+		z-index: 1;
+	}
+	50%{
+		z-index: 1;
+	}
+	100%{
+		opacity: 0;
+		display: none;
+		z-index: -100;
+
+	}
+}
+
+.comment_post{
+	margin-top: 10px; 
+	padding: 10px;
+	box-shadow: 0 10px 6px -6px #777;
+	
+	background: white;
+	
+}
+
+.abc{
+	display: none;
+}

@@ -1,0 +1,372 @@
+{% extends 'lms/base.html' %}
+
+{% block content%}
+
+{% load index %}
+
+
+
+
+<style type="text/css">
+	.leave_date:hover{
+
+		background: rgba(35,37,38,0);
+		  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #414345, #232526);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, rgba(65,67,69,0.1), rgba(35,37,38,0.1)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+z-index: -1;
+
+	}
+	a{
+		text-decoration: none;
+	}
+	.fa-chevron-down:hover{
+		color:black;
+	}
+</style>
+<div class="row" >
+	<div class="col-md-2"></div>
+        <div class="col-md-8">
+<div class="card" style=" margin-top: 40px; -webkit-box-shadow: 10px 10px 6px -6px #401b60;
+-moz-box-shadow: 10px 10px 6px -6px #401b60;
+box-shadow: 10px 10px 6px -6px #401b60;
+border: none;">
+  
+    <h1  style="
+    opacity:0.8;
+    color:#e5e6e8;
+background: #4776E6;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #8E54E9, #4776E6);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #8E54E9, #4776E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    font-size: 25px;
+
+    padding: 30px;
+    text-align: center;
+    margin:0;
+
+    "  >LEAVE INFORMATION</h1>
+    
+   
+    	
+ <div id="accordion" role="tablist">
+  <div class="card">
+    <div class="card-header" role="tab" id="headingOne">
+    	<a data-toggle="collapse" href="#collapseOne" role="button" aria-expanded="false" aria-controls="collapseOne">
+      <h5 class="mb-0" style="display:flex;justify-content:space-between;">
+        
+          <div>CASUAL LEAVE</div>
+        
+        <i class="fa fa-chevron-down" style="color:gray; font-size:25px;"></i>
+      </h5>
+      </a>
+    </div>
+
+    <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body" style="padding:0;">
+      	{% for leave in list_of_leaves  %}      	
+      		{% ifequal leave.leave 'CASUAL LEAVE'  %}
+      			<div class="leave_date" style="display:flex;justify-content:space-around;align-items:center;border-bottom:2px solid rgba(35,37,38,0.3) ">
+      				<div style="font-size:20px;color:rgba(35,37,38,1);margin-left:20px;">FROM</div>
+      				  		
+	      				<div style="opacity:1;color:#e5e6e8;font-size: 15px;padding: 10px;text-align: center;margin-right:10px;letter-spacing: 2px;line-height:150%;">	
+							
+							<div style="color:red;">{{ month|index:leave.startDate.month }}</div>
+							<div style="font-size:25px;color:black;">{{ leave.startDate.day }}</div>
+							<div style="color:rgba(35,37,38,1);">{{ leave.startDate.year }}</div>
+							
+						</div>
+						<div style="font-size:20px;color:rgba(35,37,38,1);">TO</div>  
+			      		<div style="opacity:1;color:#e5e6e8;font-size: 15px;padding: 10px;text-align: center;margin-right:10px;letter-spacing: 2px;line-height:150%;">			
+							<div style="color:red;">{{ month|index:leave.endDate.month}}</div>
+							<div style="font-size:25px;color:black;">{{ leave.endDate.day}}</div>
+							<div style="color:rgba(35,37,38,1);"  >{{ leave.endDate.year}}</div>
+						</div>       				
+		      		
+		      		<form style="padding:10px;margin-right:20px;" action="/leave/leaveHistoryReport/" method="POST" > 
+		      		{% csrf_token %} 
+		      		<input type="hidden" name="startDate" value="{{ leave.startDate|date:'YYYY-MM-DD' }}"> 
+		      		<input type="hidden" name="endDate" value="{{leave.endDate}}"> 
+					<button class="btn btn-danger" style="z-index:1;">Cancel Leave</button>			
+					</form>	
+				</div>	
+
+      		{% endifequal %}
+		
+      	{% endfor %}
+       
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab" id="headingTwo">
+      
+        <a class="collapsed" data-toggle="collapse" href="#collapseTwo" role="button" aria-expanded="false" aria-controls="collapseTwo">
+      <h5 class="mb-0" style="display:flex;justify-content:space-between;">
+          <div>SICK LEAVE</div>
+        <i class="fa fa-chevron-down" style="color:gray; font-size:25px;"></i>
+      
+      </h5>
+      </a>
+    </div>
+    <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
+       <div class="card-body" style="padding:0;">
+      	{% for leave in list_of_leaves  %}      	
+      		{% ifequal leave.leave 'SICK LEAVE'  %}
+      			<div class="leave_date" style="display:flex;justify-content:space-around;align-items:center;border-bottom:2px solid rgba(35,37,38,0.3) ">
+      				<div style="font-size:20px;color:rgba(35,37,38,1);margin-left:20px;">FROM</div>
+      				  		
+	      				<div style="opacity:1;color:#e5e6e8;font-size: 15px;padding: 10px;text-align: center;margin-right:10px;letter-spacing: 2px;line-height:150%;">	
+							
+							<div style="color:red;">{{ month|index:leave.startDate.month }}</div>
+							<div style="font-size:25px;color:black;">{{ leave.startDate.day }}</div>
+							<div style="color:rgba(35,37,38,1);">{{ leave.startDate.year }}</div>
+							
+						</div>
+						<div style="font-size:20px;color:rgba(35,37,38,1);">TO</div>  
+			      		<div style="opacity:1;color:#e5e6e8;font-size: 15px;padding: 10px;text-align: center;margin-right:10px;letter-spacing: 2px;line-height:150%;">			
+							<div style="color:red;">{{ month|index:leave.endDate.month}}</div>
+							<div style="font-size:25px;color:black;">{{ leave.endDate.day}}</div>
+							<div style="color:rgba(35,37,38,1);"  >{{ leave.endDate.year}}</div>
+						</div>  
+
+      				
+		      		
+		      		<form style="padding:10px;margin-right:20px;" method="POST" > 
+		      		{% csrf_token %} 
+					<button class="btn btn-danger" style="z-index:1;">Cancel Leave</button>			
+					</form>	
+				</div>	
+
+      		{% endifequal %}
+    		
+    	
+		
+      	{% endfor %}
+       
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab" id="headingThree">
+      
+        <a class="collapsed" data-toggle="collapse" href="#collapseThree" role="button" aria-expanded="false" aria-controls="collapseThree">
+      <h5 class="mb-0" style="display:flex;justify-content:space-between;">
+          <div>VACATION LEAVE</div>
+        <i class="fa fa-chevron-down" style="color:gray; font-size:25px;"></i>
+       
+      </h5>
+      </a>
+    </div>
+    <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
+       <div class="card-body" style="padding:0;">
+      	{% for leave in list_of_leaves  %}      	
+      		{% ifequal leave.leave 'VACATION LEAVE'  %}
+      			<div class="leave_date" style="display:flex;justify-content:space-around;align-items:center;border-bottom:2px solid rgba(35,37,38,0.3) ">
+      				<div style="font-size:20px;color:rgba(35,37,38,1);margin-left:20px;">FROM</div>
+      				  		
+	      				<div style="opacity:1;color:#e5e6e8;font-size: 15px;padding: 10px;text-align: center;margin-right:10px;letter-spacing: 2px;line-height:150%;">	
+							
+							<div style="color:red;">{{ month|index:leave.startDate.month }}</div>
+							<div style="font-size:25px;color:black;">{{ leave.startDate.day }}</div>
+							<div style="color:rgba(35,37,38,1);">{{ leave.startDate.year }}</div>
+							
+						</div>
+						<div style="font-size:20px;color:rgba(35,37,38,1);">TO</div>  
+			      		<div style="opacity:1;color:#e5e6e8;font-size: 15px;padding: 10px;text-align: center;margin-right:10px;letter-spacing: 2px;line-height:150%;">			
+							<div style="color:red;">{{ month|index:leave.endDate.month}}</div>
+							<div style="font-size:25px;color:black;">{{ leave.endDate.day}}</div>
+							<div style="color:rgba(35,37,38,1);"  >{{ leave.endDate.year}}</div>
+						</div>  
+
+      				
+		      		
+		      		<form style="padding:10px;margin-right:20px;" action= method="POST" >  
+					<button class="btn btn-danger" style="z-index:1;">Cancel Leave</button>			
+					</form>	
+				</div>	
+
+      		{% endifequal %}
+    		
+    	
+		
+      	{% endfor %}
+       
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab" id="headingThree">
+      
+        <a class="collapsed" data-toggle="collapse" href="#collapseFour" role="button" aria-expanded="false" aria-controls="collapseFour">
+      <h5 class="mb-0" style="display:flex;justify-content:space-between;">
+          <div>EARN LEAVE</div>
+          <i class="fa fa-chevron-down" style="color:gray; font-size:25px;"></i>
+      
+        
+      </h5>
+      </a>
+    </div>
+    <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
+       <div class="card-body" style="padding:0;">
+      	{% for leave in list_of_leaves  %}      	
+      		{% ifequal leave.leave 'EARN LEAVE'  %}
+      			<div class="leave_date" style="display:flex;justify-content:space-around;align-items:center;border-bottom:2px solid rgba(35,37,38,0.3) ">
+      				<div style="font-size:20px;color:rgba(35,37,38,1);margin-left:20px;">FROM</div>
+      				  		
+	      				<div style="opacity:1;color:#e5e6e8;font-size: 15px;padding: 10px;text-align: center;margin-right:10px;letter-spacing: 2px;line-height:150%;">	
+							
+							<div style="color:red;">{{ month|index:leave.startDate.month }}</div>
+							<div style="font-size:25px;color:black;">{{ leave.startDate.day }}</div>
+							<div style="color:rgba(35,37,38,1);">{{ leave.startDate.year }}</div>
+							
+						</div>
+						<div style="font-size:20px;color:rgba(35,37,38,1);">TO</div>  
+			      		<div style="opacity:1;color:#e5e6e8;font-size: 15px;padding: 10px;text-align: center;margin-right:10px;letter-spacing: 2px;line-height:150%;">			
+							<div style="color:red;">{{ month|index:leave.endDate.month}}</div>
+							<div style="font-size:25px;color:black;">{{ leave.endDate.day}}</div>
+							<div style="color:rgba(35,37,38,1);"  >{{ leave.endDate.year}}</div>
+						</div>  
+
+      				
+		      		
+		      		<form style="padding:10px;margin-right:20px;" action= method="POST" >  
+					<button class="btn btn-danger" style="z-index:1;">Cancel Leave</button>			
+					</form>	
+				</div>	
+
+      		{% endifequal %}
+    		
+    	
+		
+      	{% endfor %}
+       
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab" id="headingThree">
+      
+        <a class="collapsed" data-toggle="collapse" href="#collapseFive" role="button" aria-expanded="false" aria-controls="collapseFive">
+      <h5 class="mb-0" style="display:flex;justify-content:space-between;">
+          <div>MATERNITY LEAVE</div>
+          <i class="fa fa-chevron-down" style="color:gray; font-size:25px;"></i>
+      
+        
+      </h5>
+      </a>
+    </div>
+    <div id="collapseFive" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
+       <div class="card-body" style="padding:0;">
+      	{% for leave in list_of_leaves  %}      	
+      		{% ifequal leave.leave 'MATERNITY LEAVE'  %}
+      			<div class="leave_date" style="display:flex;justify-content:space-around;align-items:center;border-bottom:2px solid rgba(35,37,38,0.3) ">
+      				<div style="font-size:20px;color:rgba(35,37,38,1);margin-left:20px;">FROM</div>
+      				  		
+	      				<div style="opacity:1;color:#e5e6e8;font-size: 15px;padding: 10px;text-align: center;margin-right:10px;letter-spacing: 2px;line-height:150%;">	
+							
+							<div style="color:red;">{{ month|index:leave.startDate.month }}</div>
+							<div style="font-size:25px;color:black;">{{ leave.startDate.day }}</div>
+							<div style="color:rgba(35,37,38,1);">{{ leave.startDate.year }}</div>
+							
+						</div>
+						<div style="font-size:20px;color:rgba(35,37,38,1);">TO</div>  
+			      		<div style="opacity:1;color:#e5e6e8;font-size: 15px;padding: 10px;text-align: center;margin-right:10px;letter-spacing: 2px;line-height:150%;">			
+							<div style="color:red;">{{ month|index:leave.endDate.month}}</div>
+							<div style="font-size:25px;color:black;">{{ leave.endDate.day}}</div>
+							<div style="color:rgba(35,37,38,1);"  >{{ leave.endDate.year}}</div>
+						</div>  
+
+      				
+		      		
+		      		<form style="padding:10px;margin-right:20px;" action= method="POST" >  
+					<button class="btn btn-danger" style="z-index:1;">Cancel Leave</button>			
+					</form>	
+				</div>	
+
+      		{% endifequal %}
+    		
+    	
+		
+      	{% endfor %}
+       
+      </div>
+    </div>
+  </div>
+   <div class="card">
+    <div class="card-header" role="tab" id="headingThree">
+      
+
+        <a class="collapsed" data-toggle="collapse" href="#collapseSix" role="button" aria-expanded="false" aria-controls="collapseSix">
+        	<h5 class="mb-0" style="display:flex;justify-content:space-between;">
+          <div>WORK FROM HOME</div>
+         <i class="fa fa-chevron-down" style="color:gray; font-size:25px;"></i>
+      
+      </h5>
+      </a>
+    </div>
+    <div id="collapseSix" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
+       <div class="card-body" style="padding:0;">
+      	{% for leave in list_of_leaves  %}      	
+      		{% ifequal leave.leave 'WORK FROM HOME'  %}
+      			<div class="leave_date" style="display:flex;justify-content:space-around;align-items:center;border-bottom:2px solid rgba(35,37,38,0.3) ">
+      				<div style="font-size:20px;color:rgba(35,37,38,1);margin-left:20px;">FROM</div>
+      				  		
+	      				<div style="opacity:1;color:#e5e6e8;font-size: 15px;padding: 10px;text-align: center;margin-right:10px;letter-spacing: 2px;line-height:150%;">	
+							
+							<div style="color:red;">{{ month|index:leave.startDate.month }}</div>
+							<div style="font-size:25px;color:black;">{{ leave.startDate.day }}</div>
+							<div style="color:rgba(35,37,38,1);">{{ leave.startDate.year }}</div>
+							
+						</div>
+						<div style="font-size:20px;color:rgba(35,37,38,1);">TO</div>  
+			      		<div style="opacity:1;color:#e5e6e8;font-size: 15px;padding: 10px;text-align: center;margin-right:10px;letter-spacing: 2px;line-height:150%;">			
+							<div style="color:red;">{{ month|index:leave.endDate.month}}</div>
+							<div style="font-size:25px;color:black;">{{ leave.endDate.day}}</div>
+							<div style="color:rgba(35,37,38,1);"  >{{ leave.endDate.year}}</div>
+						</div>  
+
+      				
+		      		
+		      		<form method="POST" style="padding:10px;margin-right:20px;" action="{% url 'leaveHistoryReport' %}">
+		      		{% csrf_token %}
+        			{% include 'includes/bs4_form.html' with form=form %}
+		      		<input type="hidden" name="startDate" value="{{leave.startDate}}">  
+		      		<input type="hidden" name="endDate" value="{{leave.endDate}}">  
+					<button class="btn btn-danger" style="z-index:1;">Cancel Leave</button>	
+
+					</form>	
+				</div>	
+
+      		{% endifequal %}
+    		
+    	
+		
+      	{% endfor %}
+       
+      </div>
+    </div>
+  </div>
+  <div class="card">
+  	
+  </div>
+</div>
+
+
+
+    	
+
+    
+  </div>
+        				
+        	            <div class="col-md-3"></div>	
+	 	</div>
+    <div class="col-md-2"></div>
+</div>
+<script type="text/javascript">
+window.onload = function() {
+  var p = document.getElementById("collapseOne");
+		p.classList.remove("show");
+};
+	
+</script>
+{%endblock%}

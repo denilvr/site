@@ -1,0 +1,61 @@
+{% extends 'lms/base.html' %}
+
+{% block content %}
+<style type="text/css">
+	body{
+		background: #5C258D;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #4389A2, #5C258D);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #4389A2, #5C258D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+	}
+</style>
+	
+	<div class="row" style="height: 200px;">
+		
+		<div class="col-md-4">
+			<div class="card" style="padding: 40px; margin-top: 40px; -webkit-box-shadow: 10px 10px 6px -6px #401b60;
+       -moz-box-shadow: 10px 10px 6px -6px #401b60;
+            box-shadow: 10px 10px 6px -6px #401b60;
+            ">
+			  <i class="fa fa-file-text" style="font-size: 250px;
+            margin: 0 auto; padding: 20px; padding-top: 0px; color: #EB3349"></i>
+			  <div class="card-block">
+			    <h2 class="card-title">Apply for Leave</h2>
+			    <p class="card-text">Please fill in a short form to apply for a leave. </p>
+			    <a href="/leave/leaveApplication" class="btn btn-primary">Apply Now</a>
+			  </div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="card" style="padding: 40px; margin-top: 40px;-webkit-box-shadow: 10px 10px 6px -6px #401b60;
+       -moz-box-shadow: 10px 10px 6px -6px #401b60;
+            box-shadow: 10px 10px 6px -6px #401b60;
+            ">
+			  <i class="fa fa-calendar" style="font-size: 250px;
+            margin: 0 auto;padding: 20px; padding-top: 0px; color: #1976d2;"></i>
+			  <div class="card-block">
+			    <h2 class="card-title">View your Leaves</h2>
+			    <p class="card-text">View and modify the leaves you have taken. </p>
+			    <a href="/leave/leaveHistoryReport/" class="btn btn-primary">View Now</a>
+			  </div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="card" style="padding: 40px; margin-top: 40px;-webkit-box-shadow: 10px 10px 6px -6px #401b60;
+       -moz-box-shadow: 10px 10px 6px -6px #401b60;
+            box-shadow: 10px 10px 6px -6px #401b60;
+            ">
+
+			  <i class="fa fa-shopping-cart" style="font-size: 250px;
+            margin: 0 auto;padding: 20px; padding-top: 0px; color: #401b60"></i>
+			  <div class="card-block">
+			    <h2 class="card-title">Check Leaves Left</h2>
+			    <p class="card-text">View the number of leaves you have left. </p>
+			    <a href="/leave/leaveBalanceReport/" class="btn btn-primary">View Now</a>
+			  </div>
+			</div>
+		</div>
+	</div>	
+
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<div class="row" >
+<div class="col-md-2"></div>
+    <div class="col-md-8">
+      <h2 style="font-family:Oswald;text-transform:uppercase;margin-top:25px;font-weight:600;">Drafts</h2>  
+    {% for post in posts %}
+        <div class="post card">
+            <h1>
+                <a class="blog_title" href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a> 
+                {% if user.is_superuser %}
+                    <a href="{% url 'post_publish' pk=post.pk %}"><button class="btn btn-primary">Publish</button></a>
+                {% endif %}           
+            </h1>
+            <p class="post_text">{{ post.text|linebreaksbr|truncatechars:200 }}</p>
+            <div class="date"> Created Date : 
+                {{ post.created_date }}
+            </div>
+            
+            
+            
+        </div>
+         {% endfor %}
+        </div>
+    <div class="col-md-2"></div>
+   
+</div>
+{% endblock %}

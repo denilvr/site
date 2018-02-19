@@ -1,0 +1,26 @@
+{% extends '../lms/base.html' %}
+
+{% block content %}
+
+<div class="col-md-2"></div>
+            <div class="col-md-8">
+              
+                <h2 style="font-family:Roboto;text-transform:uppercase;margin-top:40px;">Log In</h2>
+              
+  <form method="post" action="{% url 'login' %}" novalidate class="add_form">
+    {% csrf_token %}
+        {% include 'includes/bs4_form.html' with form=form %}
+    <button class="btn btn-primary">Submit</button>
+  </form>
+
+
+   </div>
+<div class="col-md-2"></div>
+
+
+
+
+
+
+
+{% endblock %}

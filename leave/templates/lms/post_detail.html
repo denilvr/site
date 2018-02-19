@@ -1,0 +1,106 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="row" style="margin-bottom:30px;">
+	<div class="col-md-1"></div>
+    <div class="col-md-11">
+
+	<div class="post_detail">
+            <h1 >
+                <a class="blog_title" href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a>
+                {% if post.author == request.user %}
+                <a href="{% url 'post_edit' pk=post.pk %}"><i class="fa fa-pencil"></i></a>  
+                <a class="btn btn-default" href="{% url 'post_remove' pk=post.pk %}"><i class="fa fa-trash"></i></a>  
+                {% endif %}
+            </h1>
+            <p class="post_text" style="padding-left:0;">{{ post.text|linebreaksbr }}</p>
+            <div class="date"> Published Date : 
+                {{ post.published_date }}
+            </div>  
+     </div>
+     </div>
+   
+</div>
+<div class="row" style="margin-bottom:30px;">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <h2 style="font-family:Roboto;text-transform:uppercase;">Comments</h2>
+            <form method="POST" action="{% url 'add_comment' pk=post.pk %}" class="comment_post card" style="display:flex;justify-content:center;">
+                {% csrf_token %}                 
+                <strong >{{request.user}}</strong>
+                {% load widget_tweaks %}    
+                <div style="display:flex;justify-content:space-between;">            
+                {% for field in form.visible_fields %}                    
+                        <div class="form-group" style="width:100%;margin:0;margin-right:4px;border:1px blue;">
+                        {% render_field field class="form-control" %}
+                        </div>
+                {% endfor %}                      
+                 <button class="btn btn-primary" style="">
+                            Add a comment!
+                 </button>
+             </div>
+            </form>   
+        
+    
+          
+            
+           {% for comments in comm reversed %}
+           <div class="comment_post card" >
+               <div style="display:flex;justify-content:space-between">
+                    <strong>{{comments.author}}</strong>
+                    {% if comments.author == request.user %}
+                    <div style="display:flex;">
+                        <a onclick="func({{comments.pk}})"><i class="fa fa-pencil comm_button" style="font-size:18px;cursor:pointer;"></i></a>
+                        <form method="POST" action="{% url 'remove_comment' pk=post.pk ck=comments.pk %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="next" value="{{ request.path }}">
+                            <button class="del_comm_btn" style="margin:0;padding:0;background:none;border:none;padding-left:15px;cursor:pointer;"><i style="font-size:18px;" class="fa fa-trash comm_button"></i></button>
+                           
+                        </form>
+                         
+                    </div> 
+                      {% endif %}                   
+                </div>
+                
+               <div class="{{comments.pk}}">{{comments.text}}</div>
+               
+
+
+               <form class="{{comments.pk}} abc" method="POST" action="{% url 'edit_comment' pk=post.pk ck=comments.pk %}" class="comment_post card">
+                {% csrf_token %}                 
+                
+                {% load widget_tweaks %}                
+                {% for field in form.visible_fields %}
+                <div style="display:flex;justify-content:space-between;">
+                <div class="form-group" style="width:100%;margin:0;margin-right:4px;">
+                {% render_field field class="form-control" placeholder="Enter new comment" %}
+                </div>
+                {% endfor %}
+
+               <button class="btn btn-primary">
+               Update comment!
+               </button>
+           </div>
+           </form>
+
+          
+           </div>
+               
+           {% endfor %}
+    </div>
+
+    <div class="col-md-2"></div>
+    
+</div>	
+
+<script type="text/javascript">
+    function func(pk){
+        var id = '.' + String(pk);
+        //var id_form = '#' + String(pk) + '_form';
+
+        $(id).toggleClass("abc");
+        //$(id_form).toggleClass("abc");
+    }
+</script>
+
+{% endblock %}

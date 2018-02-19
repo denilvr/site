@@ -1,0 +1,99 @@
+{% extends 'lms/base.html' %}
+{% block content%}
+<style type="text/css">
+html{
+    font-family: 'Roboto', sans-serif;
+}
+.form-group label{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
+	input[type="text"]{
+		margin:0;
+	}
+    
+
+</style>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
+<div class="row" >
+	<div class="col-md-3"></div>
+    <div class="col-md-6">
+   		<div class="card" style=" margin-top: 40px; -webkit-box-shadow: 10px 10px 6px -6px #401b60;
+       -moz-box-shadow: 10px 10px 6px -6px #401b60;
+            box-shadow: 10px 10px 6px -6px #401b60;
+            border: none;">
+			  
+			    <h1  style="
+                opacity:0.8;
+                color:#e5e6e8;
+            background: #4776E6;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #8E54E9, #4776E6);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #8E54E9, #4776E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                font-size: 25px;
+ 
+                padding: 30px;
+                text-align: center;
+
+                "  >APPLY FOR LEAVE</h1>
+			    
+			    <form  method="POST" novalidate class="add_form" style="margin: 40px;margin-top:0;font-family: 'Roboto', sans-serif;">
+		{% csrf_token %}
+        {% include 'includes/bs4_form.html' with form=form %}
+        <input id="day" type="number" name="k" value="{{day}}" style="display:none;">
+        <input id="month" type="number" name="l" value="{{month}}" style="display:none;">
+        <input id="year" type="number" name="m" value="{{year}}" style="display:none;">
+		<button class="btn btn-primary" >Submit</button>
+	</form>
+			  </div>
+			
+            <div class="col-md-3"></div>
+        </div>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.28.5/date_fns.min.js"></script>  
+    
+    <script>
+    var a = document.getElementById('id_startDate');
+    a.type = "text";
+    a.placeholder = "yyyy-mm-dd";
+    a.innerHTML = "<div id='selected'></div>";
+    var day = Number(document.getElementById('day').value);
+    var month = Number(document.getElementById('month').value);
+    var year = Number(document.getElementById('year').value);
+    console.log(day+2);
+    console.log(month);
+    console.log(year);
+    new Pikaday(
+    {
+        field: document.getElementById('id_startDate'),
+         minDate: new Date(year,month-1,day+2),
+        toString: function(date, format) {
+            return dateFns.format(date, format);
+        },
+        parse: function(dateString, format) {
+            return dateFns.parse(dateString);
+        },
+       
+    });
+    console.log(a.value);
+    var b = document.getElementById('id_endDate');
+    b.type = "text";
+    b.placeholder = "yyyy-mm-dd"
+    
+    new Pikaday(
+    {
+        field: document.getElementById('id_endDate'), 
+        minDate: new Date(year,month-1,day+2),
+        
+   
+        toString: function(date, format) {
+            return dateFns.format(date, format);
+        },
+        parse: function(dateString, format) {
+            return dateFns.parse(dateString);
+        }
+        
+
+    });
+    
+    </script>
+{%endblock%}
